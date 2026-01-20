@@ -4,11 +4,17 @@ metadata:
   name: good-pod
   namespace: ecommerce
   labels:
-    app: ecommerce # VALID: Correct label
+    app: ecommerce
 spec:
+  securityContext:
+    runAsUser: 1000 # Fix for AVD-KSV-0118: Run as a specific user (not root)
+    runAsGroup: 3000
+    fsGroup: 2000
   containers:
   - name: nginx
     image: nginx:1.25 # VALID: Specific version
-    imagePullPolicy: Always # VALID: Policy compliant
+    imagePullPolicy: Always
     securityContext:
       privileged: false # VALID: Non-privileged
+      allowPrivilegeEscalation: false # Best practice
+      readOnlyRootFilesystem: false # Nginx needs to write logs, so we keep this false but ignore the rule later
