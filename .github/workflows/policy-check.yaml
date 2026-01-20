@@ -18,5 +18,5 @@ jobs:
           exit-code: '1' # Fails the pipeline if issues are found
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
-          trivy-config: .trivyignore
+          trivyignores: .trivyignore
           skip-files: 'tests/bad-deployment.yaml'
