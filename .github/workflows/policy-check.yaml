@@ -1,0 +1,20 @@
+name: Policy and Security Scan
+on: [push, pull_request]
+
+jobs:
+  trivy-scan:
+    name: Trivy IaC Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1' # Fails the pipeline if issues are found
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'

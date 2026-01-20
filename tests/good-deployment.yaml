@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: good-pod
+  namespace: ecommerce
+  labels:
+    app: ecommerce # VALID: Correct label
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.25 # VALID: Specific version
+    imagePullPolicy: Always # VALID: Policy compliant
+    securityContext:
+      privileged: false # VALID: Non-privileged

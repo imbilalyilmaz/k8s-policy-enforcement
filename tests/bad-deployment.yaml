@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: bad-pod
+  namespace: ecommerce
+  labels:
+    app: wrong-app # ERROR 1: Incorrect label for this namespace
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest # ERROR 2: Using 'latest' tag
+    imagePullPolicy: IfNotPresent # ERROR 3: Should be 'Always'
+    securityContext:
+      privileged: true # ERROR 4: Privileged mode is not allowed

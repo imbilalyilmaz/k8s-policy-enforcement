@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-ecommerce-namespace
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: require-labels-for-ecommerce
+      match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+            namespaces:
+            - ecommerce
+      validate:
+        message: "ERROR: Only pods with the label 'app: ecommerce' are allowed in the 'ecommerce' namespace."
+        pattern:
+          metadata:
+            labels:
+              app: ecommerce
